@@ -1,0 +1,230 @@
+# ===========================================================
+# metadata format of NKS preset file
+# ===========================================================
+# Arturia Mini V2 'A Touch me.nksf'
+#
+# ----------------file headder-------------------------------
+#  file magic: 52 49 46 46 ('RIFF')
+#  file size:  68 25 00 00 (32bit LE 0x00002568)
+#  file type:  4e 49 4b 53 ('NIKS') Native Instruments Komplete S
+# ----------------chunk headder------------------------------
+#  chunk id:         4e 49 53 49 ('NISI') Native Instruments S? I?
+#  chunk size:       e4 00 00 00 (0x000000e4)
+#  unknown:          01 00 00 00 ( maybe version? 1)
+#  meta list:        8a          ( 4bit: 8:key/value pairs 4bit: size=10)
+# ----------------meta:UUID--------------------------------
+#  value type/size:  a4 (type 3bit 5:string size 5bit: 4byte)
+#  value:            55 55 49 44 ('UUID')
+#  uuid:             da 00 24
+#                    37 45 32 35 36 32 31 37 2d 34 37 44 41 2d 34 37
+#                    34 36 2d 30 30 30 31 2d 41 34 36 35 36 45 46 31
+#                    31 39 32 30 ('7E256217-47DA-4746-0001-A4656EF11920')
+# ----------------meta:author--------------------------------
+#  value type/size:  a6 (type 3bit 5:string size 5bit: 6byte)
+#  value:            61 75 74 68 6f 72 ('author')
+#  value type/size:  a8 (type 3bit 5:string size 5bit: 8byte)
+#  value:            47 2e 44 61 72 63 65 79 ('G.Darcey')
+# ----------------meta:bankchain--------------------------------
+#  value type/size:  a9 (type 3bit 5:string size 5bit: 9byte)
+#  value:            62 61 6e 6b 63 68 61 69 6e ('bankchanin')
+#  list:             93 (type 4bit 9:list size 4bit: 3) => ['Mini V2', '', '']
+#  value type/size:  a7 (type 3bit 5:string size 5bit: 7byte)
+#  value:            a7 4d 69 6e 69 20 56 32 ('Mini V2')
+#  value type/size:  a0 (type 3bit 5:string size 5bit: 0byte)
+#  value type/size:  a0 (type 3bit 5:string size 5bit: 0byte)
+# ----------------meta:comment-------------------------------
+#  value type/size:  a7 (type 3bit 5:string size 5bit: 7byte)
+#  value:            63 6f 6d 6d 65 6e 74 ('comment')
+#  value type/size:  a0 (type 3bit 5:string size 5bit: 0byte)
+# ----------------meta:deviceType----------------------------
+#  value type/size:  aa (type 3bit 5:string size 5bit: 10byte)
+#  value;            64 65 76 69 63 65 54 79 70 65 ('deviceType')
+#  value type/size:  a4 (type 3bit 5:string size 5bit: 4byte)
+#  value;            49 4e 53 54 ("INST")
+# ----------------meta:modes---------------------------------
+#  value type/size:  a5 (type 3bit 5:string size 5bit: 5byte)
+#  value:            6d 6f 64 65 73 ('modes')
+#  list:             93 (type 4bit 9:list size 4bit: 3) => ['Arpaggiated', 'Sequence/Loop', 'Synthetic']
+#  value type/size:  ab (type 3bit 5:string size 5bit: 11byte)
+#  value:            41 72 70 65 67 67 69 61 74 65 64 ('Arpaggiated')
+#  value type/size:  ad (type 3bit 5:string size 5bit: 13byte)
+#  value:            53 65 71 75 65 6e 63 65 2f 4c 6f 6f 70 ('Sequence/Loop')
+#  value type/size:  a9 (type 3bit 5:string size 5bit: 9byte)
+#  value:            53 79 6e 74 68 65 74 69 63 ('Synthetic')
+# ----------------meta:name---------------------------------
+#  value type/size:  a4 (type 3bit 5:string size 5bit: 4byte)
+#  value:            6e 61 6d 65 ('name')
+#  value type/size:  aa (type 3bit 5:string size 5bit: 10byte)
+#  value:            41 20 54 6f 75 63 68 20 4d 65 ('A Touch Me')
+# ----------------meta:types---------------------------------
+#  value type/size:  a5 (type 3bit 5:string size 5bit: 5byte)
+#  value:            74 79 70 65 73 ('types')
+#  list              91 (type 4bit 9:list size 4bit: 1) => [ ['Synth Misc', 'Melodic Sequences'] ]
+#  list              92 (type 4bit 9:list size 4bit: 2) => ['Synth Misc', 'Melodic Sequences']
+#  value type/size:  aa (type 3bit 5:string size 5bit: 10byte)
+#  value:            53 79 6e 74 68 20 4d 69 73 63 ('Synth Misc')
+#  value type/size:  b1 (type 3bit 5:string size 5bit: 17byte)
+#  value:            4d 65 6c 6f 64 69 63 20 53 65 71 75 65 6e 63 65
+#                    73 ('Melodic Sequences')
+# ----------------meta:uuid---------------------------------
+#  value type/size:  a4 (type 3bit 5:string size 5bit: 4byte)
+#  value:            75 75 69 64 ('uuid')
+#  value type/size:  a0 (empty)
+# ----------------meta:vender---------------------------------
+#  value type/size:  a6 (type 3bit 5:string size 5bit: 6byte)
+#  value:            76 65 6e 64 6f 72 ('vender')
+#  value type/size:  a7 (type 3bit 5:string size 5bit: a7byte)
+#  value:            41 72 74 75 72 69 61 ('Arturia')
+#
+# ===========================================================
+# Arturia Spark 'Ace Clone FR-2L.nksf'
+#
+# ----------------file headder-------------------------------
+#  file magic: 52494646 ('RIFF')
+#  file size:  6a3f 0200 (32bit LE 0x00023f6a)
+#  file type:  4e494b53 ('NIKS') Native Instruments Komplete Standard
+# ----------------chunk headder------------------------------
+#  chunk id:         4e 49 53 49 ('NISI') Native Instruments Standard Information
+#  chunk size:       b9 00 00 00 (0x000000b9)
+#  unknown:          01 00 00 00 ( maybe version? 1)
+#  meta list:        8a          ( 4bit: 8:key/value pairs 4bit: size=10)
+# ----------------meta:UUID--------------------------------
+#  value type/size:  a4 (type 3bit 5:string size 5bit: 4byte)
+#  value:            55 55 49 44 ('UUID')
+#  value type/size:  af (type 3bit 5:string size 5bit: 15byte)
+#  value:            55 5f 31 33 32 39 39 38 38 31 32 39 34 38 35 ('U_1329988129485')
+# ----------------meta:author--------------------------------
+#  value type/size:  a6 (type 3bit 5:string size 5bit: 6byte)
+#  value:            61 75 74 68 6f 72 ('author')
+#  value type/size:  ac (type 3bit 5:string size 5bit: 12byte)
+#  value:            4e 6f 72 69 20 55 62 75 6b 61 74 61 ('Nori Ubukata')
+# ----------------meta:bankchain-----------------------------
+#  value type/size:  a9 (type 3bit 5:string size 5bit: 9byte)
+#  value:            62 61 6e 6b 63 68 61 69 6e ('bankchanin')
+#  list:             93 (type 4bit 9:list size 4bit: 3) => ['Spark', 'VDM', '']
+#  value type/size:  a5 (type 3bit 5:string size 5bit: 5byte)
+#  value:            53 70 61 72 6b ('Spark')
+#  value type/size:  a3 (type 3bit 5:string size 3bit: 0byte)
+#  value:            56 44 4d ('VDM')
+#  value type/size:  a0 (type 3bit 5:string size 5bit: 0byte)
+# ----------------meta:comment-------------------------------
+#  value type/size:  a7 (type 3bit 5:string size 5bit: 7byte)
+#  value:            63 6f 6d 6d 65 6e 74 ('comment')
+#  value type/size:  a0 (type 3bit 5:string size 5bit: 0byte)
+# ----------------meta:deviceType----------------------------
+#  value type/size:  aa (type 3bit 5:string size 5bit: 10byte)
+#  value;            64 65 76 69 63 65 54 79 70 65 ('deviceType')
+#  value type/size:  a4 (type 3bit 5:string size 5bit: 4byte)
+#  value;            49 4e 53 54 ("INST")
+# ----------------meta:modes---------------------------------
+#  value type/size:  a5 (type 3bit 5:string size 5bit: 5byte)
+#  value:            6d 6f 64 65 73 ('modes')
+#  list:             91 (type 4bit 9:list size 4bit: 1) => ['Sample-based']
+#  value type/size:  ac (type 3bit 5:string size 5bit: 12byte)
+#  value:            53 61 6d 70 6c 65 2d 62 61 73 65 64('Sample-based')
+# ----------------meta:name---------------------------------
+#  value type/size:  a4 (type 3bit 5:string size 5bit: 4byte)
+#  value:            6e 61 6d 65 ('name')
+#  value type/size:  af (type 3bit 5:string size 5bit: 16byte)
+#  value:            41 63 65 20 43 6c 6f 6e 65 20 46 52 2d 32 4c ('Ace Clone FR-2L')
+# ----------------meta:types---------------------------------
+#  value type/size:  a5 (type 3bit 5:string size 5bit: 5byte)
+#  value:            74 79 70 65 73 ('types')
+#  list              91 (type 4bit 9:list size 4bit: 2) => [ ['Piano/Keys','Piano/Keys'] ]
+#  list              92 (type 4bit 9:list size 4bit: 1) => ['Piano/Keys']
+#  value type/size:  a5 (type 3bit 5:string size 5bit: 5byte)
+#  value:            44 72 75 6d 73 ('Drums')
+#  value type/size:  af (type 3bit 5:string size 5bit: 15byte)
+#  value:            41 6e 61 6c 6f 67 20 44 72 75 6d 20 4b 69 74 ('Analog Drum Kit')
+# ----------------meta:uuid---------------------------------
+#  value type/size:  a4 (type 3bit 5:string size 5bit: 4byte)
+#  value:            75 75 69 64 ('uuid')
+#  value type/size:  a0 (empty)
+# ----------------meta:vender---------------------------------
+#  value type/size:  a6 (type 3bit 5:string size 5bit: 6byte)
+#  value:            76 65 6e 64 6f 72 ('vender')
+#  value type/size:  a7 (type 3bit 5:string size 5bit: a7byte)
+#  value:            41 72 74 75 72 69 61 ('Arturia')
+# ----------------padding byte for 16bit boundary-------------
+#                    00
+#
+# ===========================================================
+# AIR Music Technology Velvet '01 A200 Default.nksf'
+#
+# ----------------file headder-------------------------------
+#  file magic: 52494646 ('RIFF')
+#  file size:  ae170000 (32bit LE 0x000017ae)
+#  file type:  4e494b53 ('NIKS') Native Instruments Komplete S
+# ----------------chunk headder------------------------------
+#  chunk id:         4e 49 53 49 ('NISI') Native Instruments S? I?
+#  chunk size:       cb 00 00 00 (0x000000cb)
+#  unknown:          01 00 00 00 ( maybe version? 1)
+# ----------------meta---------------------------------------
+#  meta list:        89          ( 4bit: 8:key/value pairs 4bit: size=9)
+# ----------------meta:author--------------------------------
+#  value type/size:  a6 (type 3bit 5:string size 5bit: 6byte)
+#  value:            61 75 74 68 6f 72 ('author')
+#  value type/size:  a0 (type 3bit 5:string size 5bit: 0byte)
+# ----------------meta:bankchain-----------------------------
+#  value type/size:  a9 (type 3bit 5:string size 5bit: 9byte)
+#  value:            62 61 6e 6b 63 68 61 69 6e ('bankchanin')
+#  list:             93 (type 4bit 9:list size 4bit: 3) => ['Velvet', '', '']
+#  value type/size:  a6 (type 3bit 5:string size 5bit: 6byte)
+#  value:            56 65 6c 76 65 74 ('Velvet')
+#  value type/size:  a0 (type 3bit 5:string size 5bit: 0byte)
+#  value type/size:  a0 (type 3bit 5:string size 5bit: 0byte)
+# ----------------meta:comment-------------------------------
+#  value type/size:  a7 (type 3bit 5:string size 5bit: 7byte)
+#  value:            63 6f 6d 6d 65 6e 74 ('comment')
+#  value type/size:  a0 (type 3bit 5:string size 5bit: 0byte)
+# ----------------meta:deviceType----------------------------
+#  value type/size:  aa (type 3bit 5:string size 5bit: 10byte)
+#  value;            64 65 76 69 63 65 54 79 70 65 ('deviceType')
+#  value type/size:  a4 (type 3bit 5:string size 5bit: 4byte)
+#  value;            49 4e 53 54 ("INST")
+# ----------------meta:modes---------------------------------
+#  value type/size:  a5 (type 3bit 5:string size 5bit: 5byte)
+#  value:            6d 6f 64 65 73 ('modes')
+#  list:             90 (type 4bit 9:list size 4bit: 0) => []
+# ----------------meta:name---------------------------------
+#  value type/size:  a4 (type 3bit 5:string size 5bit: 4byte)
+#  value:            6e 61 6d 65 ('name')
+#  value type/size:  af (type 3bit 5:string size 5bit: 16byte)
+#  value:            30 31 20 41 32 30 30 20 44 65 66 61 75 6c 74 ('01 A200 Default')
+# ----------------meta:types---------------------------------
+#  value type/size:  a5 (type 3bit 5:string size 5bit: 5byte)
+#  value:            74 79 70 65 73 ('types')
+#  list              92 (type 4bit 9:list size 4bit: 2) => [ ['Piano/Keys'], ['Piano/Keys', 'Electric Piano'] ]
+#  list              91 (type 4bit 9:list size 4bit: 1) => ['Piano/Keys']
+#  value type/size:  aa (type 3bit 5:string size 5bit: 10byte)
+#  value:            50 69 61 6e 6f 2f 4b 65 79 73 ('Piano/Keys')
+#  list              92 (type 4bit 9:list size 4bit: 2) => ['Piano/Keys', 'Electric Piano']
+#  value type/size:  aa (type 3bit 5:string size 5bit: 10byte)
+#  value:            50 69 61 6e 6f 2f 4b 65 79 73 ('Piano/Keys')
+#  value type/size:  ae (type 3bit 5:string size 5bit: 14byte)
+#  value:            45 6c 65 63 74 72 6963 2050 6961 6e6f ('Electric Piano')
+# ----------------meta:uuid---------------------------------
+#  value type/size:  a4 (type 3bit 5:string size 5bit: 4byte)
+#  value:            75 75 69 64 ('uuid')
+#  uuid              d9 24
+#  value:            61 63 37 63 37 30 35 32 2d 62 64 62 65 2d 34 32
+#                    38 61 2d 62 35 66 37 2d 61 36 39 32 32 66 64 35
+#                    30 61 32 31 ('ac7c7052-bdbe-428a-b5f7-a6922fd50a21')
+# ----------------meta:vender---------------------------------
+#  value type/size:  a6 (type 3bit 5:string size 5bit: 6byte)
+#  value:            76 65 6e 64 6f 72 ('vender')
+#  value type/size:  b4 (type 3bit 5:string size 5bit: 20byte)
+#  value:            41 49 52 20 4d 75 73 69 63 20 54 65 63 68 6e 6f
+#                    6c 6f 67 79 ('AIR Music Technology')
+# ----------------padding byte for 16bit boundary-------------
+#                    00
+# ===========================================================
+#  value types
+# ===========================================================
+#  %1000-aaaa                         key/value pairs aaaa=size
+#  %1001-aaaa                         list            aaaa=size
+#  %101a-aaaa                         string(<=32) encoding=UTF-8  aaaaa=size
+#  %1101-1001  %aaaa-aaaa             string(>32)     aaaa-aaaa=size
+#  %1101-1010  %aaaa-aaaa %bbbb-bbbb  string(>256 *maybe) aaaa-aaaa=unknown(always 0?)
+#                                                         bbbb-bbbb=size
+#                                                        * maybe 16bit BE
