@@ -30,15 +30,16 @@ gulp.task 'clean', (cb) ->
 
 
 # parse spark presets
-gulp.task 'parse_spark_presets', ['default'], ->
-  rewrite = require './'
+gulp.task 'parse-spark-presets', ['default'], ->
+  rewrite = require './index'
   gulp.src ["#{$.sparkPresetsDir}/**/*.nksf"]
     .pipe rewrite (file, data) ->
       console.info beautify (JSON.stringify data), indent_size: 2
       undefined
 
-gulp.task 'parse_miniv_presets', ['default'], ->
-  rewrite = require './'
+# parse mini V presets
+gulp.task 'parse-miniv-presets', ['default'], ->
+  rewrite = require './index'
   gulp.src ["#{$.miniVPresetsDir}/**/*.nksf"]
     .pipe rewrite (file, data) ->
       console.info beautify (JSON.stringify data), indent_size: 2

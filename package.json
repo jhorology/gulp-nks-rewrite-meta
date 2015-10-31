@@ -9,8 +9,7 @@
     },
     "main": "index",
     "scripts": {
-        "prepublish": "./node_modules/.bin/gulp",
-        "test": "./node_modules/.bin/gulp test"
+        "prepublish": "./node_modules/.bin/gulp"
     },
     "repository": {
         "type": "git",

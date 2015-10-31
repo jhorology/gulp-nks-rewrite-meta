@@ -34,7 +34,9 @@ class RIFFBuilder
   # - return this instance.
   pushChunk: (chunkId, data) ->
     @_pushId chunkId
-    @_push data
+    @_pushUInt32 data.length
+    @_push data if data.length
+    
     # padding for 16bit boundary
     if data.length & 0x01
       @_padding()

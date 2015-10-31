@@ -86,22 +86,24 @@ class NISIChunkBuilder
     @
 
   _pushString: (value) ->
-    assert.ok _.isString value, "Value must be string. value:#{value}"
+    assert.ok (_.isString value), "Value must be string. value:#{value}"
     unless value
       @_pushByte 0xa0
       return @
     s = new Buffer value, 'utf8'
-    asser.ok (s.length > 256), "String must be less than 256 bytes in UTF-8 coding. value:#{value}"
+    assert.ok (s.length < 256), "String must be less than 256 bytes in UTF-8 coding. value:#{value}"
     if s.length < 32
-      @_pushByte (0xa0 + b.length)
+      @_pushByte (0xa0 + s.length)
       @push s
     else
-      @_pushByteArray [0xd9, b.length]
+      @_pushByteArray [0xd9, s.length]
       @push s
     @
 
   _pushArray: (value) ->
-    assert.ok _.isArray value, "Value must be array. value:#{value}"
+    assert.ok (_.isArray value), "Value must be array. value:#{value}"
+    assert.ok (value.length < 16), "Array length must be less than 16. value:#{value}"
+    @_pushByte (0x90 + value.length)
     for v in value
       if _.isArray v
         @_pushArray v
@@ -110,8 +112,8 @@ class NISIChunkBuilder
     @
 
   _pushValue: (value) ->
-    if _.isArray v
-      @pushArray v
+    if _.isArray value
+      @_pushArray value
     else
-      @pushString v
+      @_pushString value
     @
