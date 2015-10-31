@@ -1,7 +1,7 @@
 {
     "name": "gulp-nks-rewrite-meta",
     "version": "0.0.1",
-    "description": "Gulp plugin for rewriting metadata of NKS preset file.",
+    "description": "Gulp plugin for rewriting metadata of NKS (Naitive Kontrol Standard) preset file.",
     "author": {
         "name": "jhorology",
         "email": "jhorology2014@gmail.com",
@@ -18,7 +18,11 @@
     "keywords": [
         "gulp",
         "gulpplugin",
-        "bitwig"
+        "Native",
+        "Instruments",
+        "NKS",
+        "Komplete",
+        "Kontrol"
     ],
     "license": "MIT",
     "dependencies": {
