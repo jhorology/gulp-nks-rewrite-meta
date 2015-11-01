@@ -94,7 +94,7 @@ _rewriteMeta = (file, obj) ->
       chunk = chunkBuilder chunkLength
       chunkParser(data).parse (key, value, buf) ->
         # insert 'modes' pre 'name'
-        if shuldInsertModes and key is 'name'
+        if shouldInsertModes and key is 'name'
           chunk.pushKeyValue 'modes', obj.modes
           meta.modes = obj.modes
           
@@ -106,7 +106,7 @@ _rewriteMeta = (file, obj) ->
           meta[key] = value
 
         # insert 'types' post 'name'
-        if shuldInsertTypes and key is 'name'
+        if shouldInsertTypes and key is 'name'
           chunk.pushKeyValue 'types', obj.types
           meta.types = obj.types
 
