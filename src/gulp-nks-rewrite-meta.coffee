@@ -16,9 +16,9 @@ $ =
   'author'
   'bankchain'
   'comment'
-  'modes'
+  'modes'      # optional, default: not contained.
   'name'
-  'types'
+  'types'      # optional. default: not contained.
  ]
 
 module.exports = (data) ->
@@ -74,20 +74,42 @@ _parseMeta = (file) ->
 
 _rewriteMeta = (file, obj) ->
   obj = _validate obj
-  arg = if file.isBuffer() then file.contents else file.path
+  src = if file.isBuffer() then file.contents else file.path
+  originalKeys = _.keys file.data
+  rewriteKeys  = _.keys obj
+  
+  # optionnal items
+  shouldInsertModes = not ('modes' in originalKeys) and 'modes' in rewriteKeys
+  shouldInsertTypes = not ('types' in originalKeys) and 'types' in rewriteKeys
+  
+  # meta chunk length
+  chunkLength = originalKeys.length
+  chunkLength += 1 if shouldInsertModes
+  chunkLength += 1 if shouldInsertTypes
+  
   bldr = builder $.formType
   meta = {}
-  reader(arg, $.formType).read (id, data) ->
+  reader(src, $.formType).read (id, data) ->
     if id is $.chunkId
-      keys = _.keys obj
-      chunk = chunkBuilder _.keys(file.data).length
+      chunk = chunkBuilder chunkLength
       chunkParser(data).parse (key, value, buf) ->
-        if key in keys
+        # insert 'modes' pre 'name'
+        if shuldInsertModes and key is 'name'
+          chunk.pushKeyValue 'modes', obj.modes
+          meta.modes = obj.modes
+          
+        if key in rewriteKeys
           chunk.pushKeyValue key, obj[key]
           meta[key] = obj[key]
         else
           chunk.push buf
           meta[key] = value
+
+        # insert 'types' post 'name'
+        if shuldInsertTypes and key is 'name'
+          chunk.pushKeyValue 'types', obj.types
+          meta.types = obj.types
+
       bldr.pushChunk id, chunk.buffer()
     else
       bldr.pushChunk id, data
