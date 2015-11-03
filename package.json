@@ -1,42 +1,44 @@
 {
-    "name": "gulp-nks-rewrite-meta",
-    "version": "0.0.3",
-    "description": "Gulp plugin for rewriting metadata of NKS (Naitive Kontrol Standard) preset file.",
-    "author": {
-        "name": "jhorology",
-        "email": "jhorology2014@gmail.com",
-        "url": "https://github.com/jhorology"
-    },
-    "main": "index",
-    "scripts": {
-        "prepublish": "./node_modules/.bin/gulp"
-    },
-    "repository": {
-        "type": "git",
-        "url": "git+https://github.com/jhorology/gulp-nks-rewrite-meta"
-    },
-    "keywords": [
-        "gulp",
-        "gulpplugin",
-        "Native",
-        "Instruments",
-        "NKS",
-        "Komplete",
-        "Kontrol"
-    ],
-    "license": "MIT",
-    "dependencies": {
-        "gulp-util": "^3.0.7",
-        "through2": "^2.0.0",
-        "underscore": "^1.8.3"
-    },
-    "devDependencies": {
-        "coffee-script": "^1.10.0",
-        "del": "^2.0.2",
-        "gulp": "^3.9.0",
-        "gulp-coffee": "^2.3.1",
-        "gulp-coffeelint": "^0.5.0",
-        "gulp-watch": "^4.3.5",
-        "js-beautify": "^1.5.10"
-    }
+  "name": "gulp-nks-rewrite-meta",
+  "version": "0.0.4",
+  "description": "Gulp plugin for rewriting metadata of NKS (Naitive Kontrol Standard) preset file.",
+  "author": {
+    "name": "jhorology",
+    "email": "jhorology2014@gmail.com",
+    "url": "https://github.com/jhorology"
+  },
+  "main": "index",
+  "scripts": {
+    "prepublish": "./node_modules/.bin/gulp"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jhorology/gulp-nks-rewrite-meta"
+  },
+  "keywords": [
+    "gulp",
+    "gulpplugin",
+    "Native",
+    "Instruments",
+    "NKS",
+    "Komplete",
+    "Kontrol"
+  ],
+  "license": "MIT",
+  "dependencies": {
+    "gulp-util": "^3.0.7",
+    "nks-json": "0.0.3",
+    "riff-reader": "0.0.6",
+    "through2": "^2.0.0",
+    "underscore": "^1.8.3"
+  },
+  "devDependencies": {
+    "coffee-script": "^1.10.0",
+    "del": "^2.0.2",
+    "gulp": "^3.9.0",
+    "gulp-coffee": "^2.3.1",
+    "gulp-coffeelint": "^0.5.0",
+    "gulp-watch": "^4.3.5",
+    "js-beautify": "^1.5.10"
+  }
 }

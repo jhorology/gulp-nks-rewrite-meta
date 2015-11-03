@@ -224,7 +224,13 @@
 #  %1000-aaaa                         key/value pairs aaaa=size
 #  %1001-aaaa                         list            aaaa=size
 #  %101a-aaaa                         string(<32) encoding=UTF-8  aaaaa=size
+#  %1100-001a                         bool a=0:false 1:true
+#  %1100-1100  %aaaa-aaaa             id value(>=128) a:value
+#  %1100-1110                         32bit 4 characters Id
 #  %1101-1001  %aaaa-aaaa             string(<256)     aaaa-aaaa=size
-#  %1101-1010  %aaaa-aaaa %bbbb-bbbb  string(>=256 *maybe) aaaa-aaaa=unknown(always 0?)
-#                                                          bbbb-bbbb=size
-#                                                          *maybe 16bit BE?
+#  %1101-1010  %aaaa-aaaa %bbbb-bbbb  string(>=256 *maybe) aaaa-aaaa=unknown(always 0?) bbbb-bbbb=size
+#                                                  or        
+#                                     string(>=16 *maybe) aaaa-aaaa bbbb-bbbb=size  *maybe 16bitBE?
+#  %1101-1100  %aaaa-aaaa %bbbb-bbbb  list(>=16 *maybe) aaaa-aaaa=unknown(always 0?) bbbb-bbbb=size
+#                                                  or        
+#                                     list(>=16 *maybe) aaaa-aaaa bbbb-bbbb=size  *maybe 16bitBE?

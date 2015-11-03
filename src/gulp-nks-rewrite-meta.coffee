@@ -2,10 +2,9 @@ assert       = require 'assert'
 through      = require 'through2'
 gutil        = require 'gulp-util'
 _            = require 'underscore'
-reader       = require './riff-reader'
-builder      = require './riff-builder'
-chunkParser  = require './nisi-chunk-parser'
-chunkBuilder = require './nisi-chunk-builder'
+reader       = require 'riff-reader'
+nksJson      = require 'nks-json'
+riffBuilder  = require './riff-builder'
 
 PLUGIN_NAME = 'bitwig-rewrite-meta'
 # chunk id
@@ -33,7 +32,8 @@ module.exports = (data) ->
         @emit 'error', new gutil.PluginError PLUGIN_NAME, err
         return cb()
       try
-        _rewriteMeta file, obj
+        chunk =  _createChunk file, obj
+        _replaceChunk file, chunk
         @push file
       catch error
         @emit 'error', new gutil.PluginError PLUGIN_NAME, error
@@ -49,7 +49,7 @@ module.exports = (data) ->
 
     if _.isFunction data
       try
-        obj = data.call @, file, (_parseMeta file), rewrite
+        obj = data.call @, file, (_deserializeChunk file), rewrite
       catch error
         rewrite error
       if data.length <= 2
@@ -57,64 +57,77 @@ module.exports = (data) ->
     else
       rewrite undefined, data
 
-
-_parseMeta = (file) ->
+#
+# deserialize NISI chunk
+_deserializeChunk = (file) ->
   src = if file.isBuffer() then file.contents else file.path
-  ret = undefined
-  reader(src, $.formType).read (id, data) ->
+  json = undefined
+  reader(src, $.formType).readSync (id, data) ->
     assert.ok (id is $.chunkId), "Unexpected chunk id. id:#{id}"
-    assert.ok (_.isUndefined ret), "Duplicate metadata chunk."
-    ret = chunkParser(data).parse()
+    assert.ok (_.isUndefined json), "Duplicate metadata chunk."
+    json = nksJson.deserializer data
+      .deserialize()
   , [$.chunkId]
 
-  assert.ok ret, "#{$.chunkId} chunk is not contained in file."
+  assert.ok json, "#{$.chunkId} chunk is not contained in file."
   # set original metadata
-  file.data = ret
-  ret
+  file.data = json
+  json
 
-_rewriteMeta = (file, obj) ->
+#
+# create new NISI chunk
+_createChunk = (file, obj) ->
   obj = _validate obj
-  src = if file.isBuffer() then file.contents else file.path
   originalKeys = _.keys file.data
   rewriteKeys  = _.keys obj
-  
+
   # optionnal items
   shouldInsertModes = not ('modes' in originalKeys) and 'modes' in rewriteKeys
   shouldInsertTypes = not ('types' in originalKeys) and 'types' in rewriteKeys
-  
-  # meta chunk length
-  chunkLength = originalKeys.length
-  chunkLength += 1 if shouldInsertModes
-  chunkLength += 1 if shouldInsertTypes
-  
-  bldr = builder $.formType
+
+  # create new NISI chunk
   meta = {}
-  reader(src, $.formType).read (id, data) ->
-    if id is $.chunkId
-      chunk = chunkBuilder chunkLength
-      chunkParser(data).parse (key, value, buf) ->
-        # insert 'modes' pre 'name'
-        if shouldInsertModes and key is 'name'
-          chunk.pushKeyValue 'modes', obj.modes
-          meta.modes = obj.modes
-          
-        if key in rewriteKeys
-          chunk.pushKeyValue key, obj[key]
-          meta[key] = obj[key]
-        else
-          chunk.push buf
-          meta[key] = value
+  for key, value of file.data
+    # insert 'modes' pre 'name'
+    if shouldInsertModes and key is 'name'
+      chunk.pushKeyValue 'modes', obj.modes
+      meta.modes = obj.modes
 
-        # insert 'types' post 'name'
-        if shouldInsertTypes and key is 'name'
-          chunk.pushKeyValue 'types', obj.types
-          meta.types = obj.types
-
-      bldr.pushChunk id, chunk.buffer()
+    # replace metadata
+    if key in rewriteKeys
+      meta[key] = obj[key]
     else
-      bldr.pushChunk id, data
-  file.contents = bldr.buffer()
+      meta[key] = value
+
+    # insert 'types' post 'name'
+    if shouldInsertTypes and key is 'name'
+      chunk.pushKeyValue 'types', obj.types
+      meta.types = obj.types
+
+  # set metadata to output file
   file.data = meta
+  
+  # seriaize metadata to buffer
+  nksJson.serializer meta
+    .serialize()
+    .buffer()
+
+#
+# replace NISI chunk
+_replaceChunk = (file, chunk) ->
+  # riff buffer builder
+  riff = riffBuilder $.formType
+
+  # iterate chunks
+  src = if file.isBuffer() then file.contents else file.path
+  reader(src, $.formType).readSync (id, data) ->
+    if id is $.chunkId
+      riff.pushChunk id, chunk
+    else
+      riff.pushChunk id, data
+
+  # output file
+  file.contents = riff.buffer()
 
 # validate object
 _validate = (obj) ->
