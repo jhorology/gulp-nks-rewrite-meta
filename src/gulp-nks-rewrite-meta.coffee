@@ -47,9 +47,11 @@ module.exports = (data) ->
       rewrite 'Streaming not supported'
       return
 
+    data = _validate data
+    metadata = _deserializeChunk file
     if _.isFunction data
       try
-        obj = data.call @, file, (_deserializeChunk file), rewrite
+        obj = data.call @, file, metadata, rewrite
       catch error
         rewrite error
       if data.length <= 2
@@ -77,7 +79,6 @@ _deserializeChunk = (file) ->
 #
 # create new NISI chunk
 _createChunk = (file, obj) ->
-  obj = _validate obj
   originalKeys = _.keys file.data
   rewriteKeys  = _.keys obj
 
