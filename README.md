@@ -14,7 +14,7 @@ using the static data.
 rewrite = require 'gulp-nks-rewrite-meta'
 
 gulp.task 'dist', ->
-  gulp.src [".../**/*.nksf"]
+  gulp.src ["src/Piano/**/*.nksf"]
     .pipe rewrite
       modes: ['Sample-based']
       types: [
@@ -29,7 +29,7 @@ using the function to provide data.
 rewrite = require 'gulp-nks-rewrite-meta'
 
 gulp.task 'dist', ->
-  gulp.src [".../Velvet/**/*.nksf"], read: true
+  gulp.src ["src/Velvet/**/*.nksf"], read: true
     .pipe rewrite (file, metadata) ->
       folder = path.relative '.../Velvet', path.dirname file.path
       # using folder as preset bank
@@ -42,7 +42,7 @@ using the non-blocking function to provide data.
 rewrite = require 'gulp-nks-rewrite-meta'
 
 gulp.task 'dist', ->
-  gulp.src ["src/**/*.bwpreset"], read: true
+  gulp.src ["src/**/*.nksf"], read: true
   .pipe rewrite (file, metadata, done) ->
       # create data in non-blocking
       nonblockingfunction metadata, (err, data) ->
