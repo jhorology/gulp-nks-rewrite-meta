@@ -31,7 +31,7 @@ rewrite = require 'gulp-nks-rewrite-meta'
 gulp.task 'dist', ->
   gulp.src ["src/Velvet/**/*.nksf"], read: true
     .pipe rewrite (file, metadata) ->
-      folder = path.relative '.../Velvet', path.dirname file.path
+      folder = path.relative 'src/Velvet', path.dirname file.path
       # using folder as preset bank
       bankchain: ['Velvet', folder, '']
     .pipe gulp.dest "dist"
