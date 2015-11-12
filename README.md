@@ -14,14 +14,14 @@ using the static data.
 rewrite = require 'gulp-nks-rewrite-meta'
 
 gulp.task 'dist', ->
-  gulp.src ["src/Piano/**/*.nksf"]
+  gulp.src ['src/Piano/**/*.nksf']
     .pipe rewrite
       modes: ['Sample-based']
       types: [
-        ["Piano/Keys"]
-        ["Piano/Keys", "Electric Piano"]
+        ['Piano/Keys']
+        ['Piano/Keys', 'Electric Piano']
       ]
-    .pipe gulp.dest "dist"
+    .pipe gulp.dest 'dist'
 ```
 
 using the function to provide data.
@@ -29,12 +29,12 @@ using the function to provide data.
 rewrite = require 'gulp-nks-rewrite-meta'
 
 gulp.task 'dist', ->
-  gulp.src ["src/Velvet/**/*.nksf"], read: true
+  gulp.src ['src/Velvet/**/*.nksf'], read: true
     .pipe rewrite (file, metadata) ->
       folder = path.relative 'src/Velvet', path.dirname file.path
       # using folder as preset bank
       bankchain: ['Velvet', folder, '']
-    .pipe gulp.dest "dist"
+    .pipe gulp.dest 'dist'
 ```
 
 using the non-blocking function to provide data.
@@ -42,7 +42,7 @@ using the non-blocking function to provide data.
 rewrite = require 'gulp-nks-rewrite-meta'
 
 gulp.task 'dist', ->
-  gulp.src ["src/**/*.nksf"], read: true
+  gulp.src ['src/**/*.nksf'], read: true
   .pipe rewrite (file, metadata, done) ->
     # create data in non-blocking
     nonblockingfunction metadata, (err, data) ->
@@ -55,7 +55,7 @@ gulp.task 'dist', ->
 ### rewrite(data)
 
 #### data
-Type: `Object` or `function(file, metadata)`
+Type: `Object` or `function(file, metadata [,callback])`
 
 The data or data provider to rewrite for.
 
@@ -85,8 +85,8 @@ The maximum index of array is (15, 2).
 
 examle:
   [
-    ["Piano/Keys"],
-    ["Piano/Keys", "Electric Piano"]
+    ['Piano/Keys'],
+    ['Piano/Keys', 'Electric Piano']
   ]
 
 #### function (file, metadata [,callbak])

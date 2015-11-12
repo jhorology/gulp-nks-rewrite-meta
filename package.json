@@ -1,6 +1,6 @@
 {
   "name": "gulp-nks-rewrite-meta",
-  "version": "0.0.8",
+  "version": "0.0.9",
   "description": "Gulp plugin for rewriting metadata of NKS (Naitive Kontrol Standard) preset file.",
   "author": {
     "name": "jhorology",

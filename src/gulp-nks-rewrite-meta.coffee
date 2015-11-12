@@ -1,3 +1,4 @@
+
 assert       = require 'assert'
 through      = require 'through2'
 gutil        = require 'gulp-util'
@@ -46,17 +47,21 @@ module.exports = (data) ->
     if file.isStream()
       rewrite 'Streaming not supported'
       return
-
-    data = _validate data
-    metadata = _deserializeChunk file
+      
     if _.isFunction data
       try
+        metadata = _deserializeChunk file
         obj = data.call @, file, metadata, rewrite
       catch error
         rewrite error
       if data.length <= 2
         rewrite undefined, obj
     else
+      try
+        data = _validate data
+        _deserializeChunk file
+      catch error
+        return error
       rewrite undefined, data
 
 #
