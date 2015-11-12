@@ -44,10 +44,10 @@ rewrite = require 'gulp-nks-rewrite-meta'
 gulp.task 'dist', ->
   gulp.src ["src/**/*.nksf"], read: true
   .pipe rewrite (file, metadata, done) ->
-      # create data in non-blocking
-      nonblockingfunction metadata, (err, data) ->
-        done err, data
-    .pipe gulp.dest 'dist'
+    # create data in non-blocking
+    nonblockingfunction metadata, (err, data) ->
+      done err, data
+  .pipe gulp.dest 'dist'
 ```
 
 ## API
