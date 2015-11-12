@@ -58,7 +58,6 @@ module.exports = (data) ->
         rewrite undefined, obj
     else
       try
-        data = _validate data
         _deserializeChunk file
       catch error
         return error
@@ -84,6 +83,7 @@ _deserializeChunk = (file) ->
 #
 # create new NISI chunk
 _createChunk = (file, obj) ->
+  obj = _validate obj
   originalKeys = _.keys file.data
   rewriteKeys  = _.keys obj
 
