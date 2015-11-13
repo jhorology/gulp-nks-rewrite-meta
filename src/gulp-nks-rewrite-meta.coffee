@@ -4,13 +4,15 @@ through      = require 'through2'
 gutil        = require 'gulp-util'
 _            = require 'underscore'
 reader       = require 'riff-reader'
-nksJson      = require 'nks-json'
+msgpack      = require 'msgpack-lite'
 riffBuilder  = require './riff-builder'
 
 PLUGIN_NAME = 'bitwig-rewrite-meta'
+
 # chunk id
 $ =
  chunkId: 'NISI'
+ chunkVer: 1
  formType: 'NIKS'
  metaItems: [
   'author'
@@ -71,8 +73,9 @@ _deserializeChunk = (file) ->
   reader(src, $.formType).readSync (id, data) ->
     assert.ok (id is $.chunkId), "Unexpected chunk id. id:#{id}"
     assert.ok (_.isUndefined json), "Duplicate metadata chunk."
-    json = nksJson.deserializer data
-      .deserialize()
+    ver = data.readUInt32LE 0
+    assert.ok ver is $.chunkVer, "Unsupported format version. version:#{ver}"
+    json = msgpack.decode data.slice 4
   , [$.chunkId]
 
   assert.ok json, "#{$.chunkId} chunk is not contained in file."
@@ -112,11 +115,12 @@ _createChunk = (file, obj) ->
 
   # set metadata to output file
   file.data = meta
-  
+
+  # chunk format version
+  buffer = new Buffer 4
+  buffer.writeUInt32LE $.chunkVer
   # seriaize metadata to buffer
-  nksJson.serializer meta
-    .serialize()
-    .buffer()
+  Buffer.concat [buffer, msgpack.encode meta]
 
 #
 # replace NISI chunk
@@ -143,9 +147,9 @@ _validate = (obj) ->
       when 'author','comment', 'name'
         _assertString key, value
       when 'bankchain'
-        _assertArray key, value, on, 3
+        _assertArray key, value, 3
       when 'modes'
-        _assertArray key, value, off, 16
+        _assertArray key, value
       when 'types'
         _assertTypes key, value
       else
@@ -157,22 +161,18 @@ _assertString = (key, value) ->
   assert.ok (_.isString value), "Option #{key} must be string. #{key}:#{value}"
 
 # assert array property
-_assertArray = (key, value, equal, size) ->
-  assert.ok (_.isArray value), "Option #{key} must be array or string. #{key}:#{value}"
-  if equal
-    assert.ok (value.length is size), "Option #{key} array length must be #{size}. #{key}:#{value}"
-  else
-    assert.ok (value.length < size), "Option #{key} array length must be less than #{size}. #{key}:#{value}"
+_assertArray = (key, value, size) ->
+  assert.ok (_.isArray value), "Option #{key} value must be array or string. #{key}:#{value}"
+  if _.isNumber size
+    assert.ok (value.length is size), "Option #{key} length of array must be #{size}. #{key}:#{value}"
   for s in value
-    assert.ok (_.isString s), "Option #{key} must be array of string. #{key}:#{value}"
+    assert.ok (_.isString s), "Option #{key} value must be array of string. #{key}:#{value}"
 
 # assert 'types' property
 _assertTypes = (key, value) ->
-  assert.ok (_.isArray value), "Option #{key} must be 2 dimensional array or string. #{key}:#{value}"
-  assert.ok (value.length < 16), "Option #{key} array length must be less than (16,3). #{key}:#{value}"
+  assert.ok (_.isArray value), "Option #{key} value must be 2 dimensional array or string. #{key}:#{value}"
   for ar in value
-    assert.ok (_.isArray ar), "Option #{key} must be 2 dimensional array of string. #{key}:#{value}"
-    assert.ok (ar.length < 3), "Option #{key} array length must be less than (16,3). #{key}:#{value}"
+    assert.ok (_.isArray ar), "Option #{key} value must be 2 dimensional array of string. #{key}:#{value}"
+    assert.ok (ar.length is 1 or ar.length is 2), "Option #{key} length of inner array must be 1 or 2. #{key}:#{value}"
     for s in ar
-      assert.ok (_.isString s), "Option #{key} must be 2 dimensional array of string. #{key}:#{value}"
-
+      assert.ok (_.isString s), "Option #{key} value must be 2 dimensional array of string. #{key}:#{value}"

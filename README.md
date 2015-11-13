@@ -73,15 +73,13 @@ Type: `String`
 ##### data.modes [optional]
 Type: `Array` of `String`
 
-The length of array should be less than 16.
-
 ##### data.name [optional]
 Type: `String`
 
 ##### data.types [optional]
 Type: 2 dimensional `Array` of `String`
 
-The maximum index of array is (15, 2).
+The length of inner array should be 1 or 2
 
 examle:
   [
